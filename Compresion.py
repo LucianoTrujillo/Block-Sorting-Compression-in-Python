@@ -1,4 +1,5 @@
 from dahuffman import HuffmanCodec
+import string
 import random
 import collections
 dic = {}
@@ -124,7 +125,7 @@ def moveToFront(bwRes):
 
     bwRes = list(bwRes)
     result = []
-    abc = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+    abc = list(string.printable)
 
     for s in range(len(bwRes)):
         index = abc.index(bwRes[s]) #get index of current char in the abc
@@ -173,7 +174,7 @@ def decompress(compressedInp, rootheap, index):
 
     letters = []
     lines = []
-    abc = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+    abc = list(string.printable)
     
     for l in range(len(decompressedList)): 
         letter = abc[int(decompressedList[l])] # letter of the abc given the index by de mtfRes
@@ -200,12 +201,13 @@ def decompress(compressedInp, rootheap, index):
 def main():
     codec = {}
     index = 0
-
     inp = input("Insert string to compress: ")
     compressedInp, rootheap, index = compress(inp)
-    print("inp compressed weights", str(len(compressedInp)) +" bits" , "and it's string is:" ,compressedInp)
+    print("inp compressed size is", str(len(compressedInp)) +" bits" , "and it's string is:" ,compressedInp)
     decompressedInp = decompress(compressedInp, rootheap, index)
-    print("inp decompressed weights", str(len(decompressedInp)* 8)  + " bits", "and it's string is:" ,decompressedInp)
+    stringDec = ""
+    stringDec = stringDec.join(decompressedInp)
+    print("inp decompressed size is", str(len(decompressedInp)* 8)  + " bits", "and it's string is:" ,stringDec)
 
 
 main()
